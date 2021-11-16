@@ -93,7 +93,6 @@ public class InsertTicket {
 				String name = rs.getString("NomDepartement");
 				combo_depart.addItem(name);
 				}
-			
 		}catch (Exception b) {
 			JOptionPane.showMessageDialog(null, b);
 		}

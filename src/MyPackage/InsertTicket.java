@@ -60,9 +60,46 @@ public class InsertTicket {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	void ville() {
+		try {
+			JComboBox combo_ville = new JComboBox();
+			combo_ville.setBounds(127, 132, 167, 33);
+			frame.getContentPane().add(combo_ville);
+			Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=JAVADATA;integratedSecurity=true;");
+			Statement stm = connection.createStatement();
+			
+			ResultSet rs = stm.executeQuery("Select NomVille from Ville");
+			
+			while(rs.next()) {
+				String name = rs.getString("NomVille");
+				combo_ville.addItem(name);
+				}
+			}catch (Exception b) {
+				JOptionPane.showMessageDialog(null, b);
+			}
+	}
+	
+	void departement() {
+		try {
+			combo_depart = new JComboBox();
+			combo_depart.setBounds(494, 132, 167, 33);
+			frame.getContentPane().add(combo_depart);
+			Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=JAVADATA;integratedSecurity=true;");
+			Statement stm = connection.createStatement();
+			
+			ResultSet rs = stm.executeQuery("Select NomDepartement from Departement");
+			
+			while(rs.next()) {
+				String name = rs.getString("NomDepartement");
+				combo_depart.addItem(name);
+				}
+			
+		}catch (Exception b) {
+			JOptionPane.showMessageDialog(null, b);
+		}
+	}
+	
 	private void initialize() {
-		
-	try {	
 		frame = new JFrame();
 		frame.setBounds(100, 100, 767, 511);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,28 +114,6 @@ public class InsertTicket {
 		text_nom_societe.setBounds(127, 64, 167, 36);
 		frame.getContentPane().add(text_nom_societe);
 		text_nom_societe.setColumns(10);
-		
-
-		JComboBox combo_ville = new JComboBox();
-		combo_ville.setBounds(127, 132, 167, 33);
-		frame.getContentPane().add(combo_ville);
-		Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=JAVADATA;integratedSecurity=true;");
-		Statement stm = connection.createStatement();
-		
-		ResultSet rs = stm.executeQuery("Select NomVille from Ville");
-		
-		while(rs.next()) {
-			String name = rs.getString("NomVille");
-			combo_ville.addItem(name);
-			
-			}
-		}catch (Exception b) {
-			JOptionPane.showMessageDialog(null, b);
-		}
-		
-		combo_depart = new JComboBox();
-		combo_depart.setBounds(494, 132, 167, 33);
-		frame.getContentPane().add(combo_depart);
 		
 		text_description = new JTextField();
 		text_description.setBounds(192, 279, 404, 36);
@@ -182,5 +197,8 @@ public class InsertTicket {
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_8.setBounds(369, 132, 130, 33);
 		frame.getContentPane().add(lblNewLabel_8);
+		
+		ville();
+		departement();
 	}
 }
